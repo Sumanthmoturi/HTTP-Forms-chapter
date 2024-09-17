@@ -1,0 +1,33 @@
+# HTTP Chapter
+
+#1.HTTP Request
+GET /18_http.html HTTP/1.1
+Host: eloquentjavascript.net
+User-Agent: Your browser's name
+#HTTP Request methods 1.GET, 2.POST, 3.PUT, 4.DELETE
+#Request Headers  1.Host 2.User-Agent
+#HTTP version   HTTP/1.1
+#Path:- in above, 18_http.html is path of resource on server
+
+#2.HTTP Response/ Server Response
+HTTP/1.1 200 OK
+Content-Length: 87320
+Content-Type: text/html
+Last-Modified: Fri, 13 Oct 2023 10:05:41 GMT
+<!doctype html>
+... the rest of the document
+
+#Status Code: 200 OK
+#Response Headers: Content-Length and Content-Type and Last_Modified
+#Response Body: Content/Data that being sent back
+#HTTP Version: HTTP/1.1
+
+#3.Browsers and HTTP:-When a browser loads a webpage, it uses HTTP/HTTPs to communicate with the server. 
+#The browser not only requests the initial HTML document but also fetches all other resources linked within the page, such as images, stylesheets, JavaScript files, and fonts. 
+#To speed up the loading process, modern browsers make multiple requests simultaneously, using parallel connections.
+
+#4.Fetching resources:-When the browser parses the HTML of a webpage and encounters references to these resources, it automatically sends additional HTTP requests to fetch them.
+#Intial Request
+#Parsing HTML and fetching linked resources
+
+

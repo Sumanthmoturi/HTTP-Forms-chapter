@@ -1,0 +1,380 @@
+<!--FORMS-->
+
+<!--1.Forms:-
+           1.HTML forms are a primary way to send user input data to the server
+           2.They allow users to input data, such as their name or a message, and submit it to the server. -->
+<form method="GET" action="example/message.html">
+    <p>Name: <input type="text" name="name"></p>
+    <p>Message:<br><textarea name="message"></textarea></p>
+    <p><button type="submit">Send</button></p>
+  </form>
+<!--        3.This form has two fields,one for the name and another for a message.
+            4.The method attribute specifies how the form data should be sent to the server.
+            5.The action attribute indicates the URL where the form data should be sent.-->
+
+
+
+<!--2.Fetch API in JS:-
+            1.Fetch API is an interface through which browser's JS can make HTTP resuests to server.
+-->
+<script>fetch("example/data.txt").then(response => {
+    console.log(response.status); // → 200
+    console.log(response.headers.get("Content-Type")); // → text/plain
+  });
+</script>
+<!--Handling Responses with Promises-->
+<script>fetch("example/data.txt")
+  .then(resp => resp.text()) // Extract the text content from the response
+  .then(text => console.log(text)); // Log the text content
+// → This is the content of data.txt
+</script>
+<!--Error handling in fetch-->
+<script>fetch("example/data.txt")
+  .then(response => {
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    return response.text();
+  })
+  .then(text => console.log(text))
+  .catch(error => console.error("Fetch error:", error));
+</script>
+
+
+
+<!--3.Configuring fetch Requests-->
+<!--Changing request method-->
+<script> 
+fetch("example/data.txt", { method: "DELETE" }).then(resp => {
+  console.log(resp.status); // → 405
+});
+
+</script>
+<!--Adding a request body-->
+<script>
+    fetch("example/data.txt", {
+  method: "POST",
+  body: JSON.stringify({ name: "Jean", message: "Hello" }),
+  headers: { "Content-Type": "application/json" }
+}).then(resp => {
+  console.log(resp.status);
+});
+</script>
+<!--Adding Custom Headers-->
+<script>fetch("example/data.txt", {
+    headers: {
+      "Range": "bytes=8-19"
+    }
+  })
+    .then(resp => resp.text())
+    .then(console.log);
+  // → the content
+</script>
+
+
+
+<!--4.HTTP Sandboxing:-
+                        1.SOP concept
+                        2.CORS concept
+-->
+
+
+
+<!--5.Communicating Between Client and Server:-
+                                            1.When building systems that require communication between a browser-based JavaScript program (client-side) and a program on a server (server-side), 
+                                                        you can model this interaction in several ways:
+
+                                                1.Remote Procedure Calls (RPC)
+                                                2.Resource-Based Communication
+-->
+
+
+
+<!--6.HTTP vs HTTPS Concept-->
+
+
+
+<!--7.Form Fields:-
+                1.Forms were initially designed for the early web to send user data to servers through HTTP requests. 
+                2.With JS,We can interact with form fields directly in the DOM, adding dynamic functionality without navigating away.
+                3.Common Form Elements are:
+-->       
+<input type="text" value="Sample Text">
+<input type="password" value="secret">
+<input type="checkbox" checked>
+<input type="color" value="#ff0000">
+<input type="date" value="2024-09-17">
+<input type="radio" name="option" value="1">
+<input type="file">
+ <!--Non-Form fields:-
+                   1.Multi-line text fields <textarea>
+                    2.Dropdown Menus   <select> and <option>
+-->
+<textarea>
+    Line 1
+    Line 2
+    Line 3
+    </textarea>
+
+<select>
+        <option>Option 1</option>
+        <option>Option 2</option>
+        <option>Option 3</option>
+</select>
+<!--Example of common form elements-->
+<p><input type="text" value="Sample Text"> (text)</p>
+<p><input type="password" value="secret"> (password)</p>
+<p><input type="checkbox" checked> (checkbox)</p>
+<p><input type="color" value="#ff0000"> (color)</p>
+<p><input type="date" value="2024-09-17"> (date)</p>
+<p>
+  <input type="radio" name="choice" value="A"> A
+  <input type="radio" name="choice" value="B" checked> B
+  <input type="radio" name="choice" value="C"> C
+  (radio)
+</p>
+<p><input type="file"> (file)</p>
+
+
+
+
+<!--8.Focus in HTML Forms:-
+                        1.Form fields in HTML can receive keyboard focus, which allows them to interact with keyboard input
+                        2.<select> menus allow keyboard navigation using arrow keys.
+                        3.You can control focus programmatically using JavaScript:
+                                    focus(): Moves focus to the specified element.
+                                    blur(): Removes focus from the specified element.
+                                    document.activeElement: Returns the currently focused element.   
+-->
+<!--HTML Attributes for Focus Control:-
+                        1.autofocus
+                        2.tabIndex
+-->
+<input type="text" autofocus>
+
+<input type="text" tabindex="1">
+<a href=".">(help)</a>
+<button onclick="console.log('ok')" tabindex="2">OK</button>
+
+
+
+<!--9.Disabled Fields:-
+                    1.All form fields can be disabled using the disabled attribute
+-->
+<button>I'm all right</button>
+<button disabled>I'm out</button>
+
+
+
+
+<!--10.Working with form element-->
+<form action="example/submit.html">
+    Name: <input type="text" name="name"><br>
+    Password: <input type="password" name="password"><br>
+    <button type="submit">Log in</button>
+  </form>
+  <script>
+    let forms = document.querySelector("form");
+    console.log(forms.elements[1].type); // → password
+    console.log(forms.elements.password.type); // → password
+    console.log(forms.elements.name.form == form); // → true
+  </script>
+<!--Submitting forms-->
+<form>
+    Value: <input type="text" name="value">
+    <button type="submit">Save</button>
+  </form>
+  <script>
+    let form = document.querySelector("form");
+    form.addEventListener("submit", event => {
+      console.log("Saving value", form.elements.value.value);
+      event.preventDefault();
+    });
+  </script>
+  
+
+
+
+<!--11.Text Fields:-
+                1.Text fields created using <textarea> or <input> tags with type="text" or type="password" have a shared interface, including properties and event handling mechanisms.
+                2.Common Properties are:
+                              1.value:Holds the current content of the text field as a string.
+-->      
+let inputField = document.querySelector("input[type='text']");
+inputField.value = "New content"; // Changes the content of the text field
+<!--                          2.selectionStart and selectionEnd:Indicate the position of the cursor and the selected text.
+    
+-->
+    let textArea = document.querySelector("textarea");
+    textArea.selectionStart = 0; // Moves cursor to the start
+    textArea.selectionEnd = 5;   // Selects the first 5 characters
+
+<!--                          3.Inserting Text with Keyboard Events:-To automatically insert a specific string when a key is pressed (e.g., pressing F2 to insert "Khasekhemwy"), you can use the keydown event.
+                              -->
+
+<textarea></textarea>
+<script>
+  let textarea = document.querySelector("textarea");
+  textarea.addEventListener("keydown", event => {
+    if (event.key == "F2") {
+      replaceSelection(textarea, "Khasekhemwy");
+      event.preventDefault();
+    }
+  });
+
+  function replaceSelection(field, word) {
+    let from = field.selectionStart, to = field.selectionEnd;
+    field.value = field.value.slice(0, from) + word + field.value.slice(to);
+    // Move the cursor after the inserted word
+    field.selectionStart = field.selectionEnd = from + word.length;
+  }
+</script>
+<!--Handling Events for Text Fields
+                            1.change Event:Fires when the text field loses focus after its content has been modified.
+                            2.input Event:Fires every time the user modifies the field's content (typing, deleting, etc.).
+-->
+<input type="text"> length: <span id="length">0</span>
+<script>
+  let text = document.querySelector("input");
+  let output = document.querySelector("#length");
+  text.addEventListener("input", () => {
+    output.textContent = text.value.length; // Updates the length of the input text
+  });
+</script>
+
+
+
+
+<!--12.Checkboxes and Radio Buttons:-Checkbox
+                                    1.A checkbox is a binary toggle, meaning it can be either checked (true) or unchecked (false).
+                                    2.The checkbox's state can be accessed or modified using its checked property, which is a boolean.
+                                    3.Clicking a checkbox toggles its state.
+-->
+
+<label>
+  <input type="checkbox" id="purple"> Make this page purple
+</label>
+<script>
+  let checkbox = document.querySelector("#purple");
+  checkbox.addEventListener("change", () => {
+    document.body.style.background = checkbox.checked ? "mediumpurple" : "";
+  });
+</script>
+<!--                        Radiobuttons:-Radio buttons allow users to select one option from a group.
+                                          Multiple radio buttons are grouped by giving them the same name attribute.
+                                          When a radio button in a group is selected, any other selected radio button in the same group is deselected.
+
+-->
+Color:
+<label>
+  <input type="radio" name="color" value="orange"> Orange
+</label>
+<label>
+  <input type="radio" name="color" value="lightgreen"> Green
+</label>
+<label>
+  <input type="radio" name="color" value="lightblue"> Blue
+</label>
+<script>
+  let buttons = document.querySelectorAll("[name=color]");
+  for (let button of Array.from(buttons)) {
+    button.addEventListener("change", () => {
+      document.body.style.background = button.value;
+    });
+  }
+</script>
+
+
+
+<!--13.Select Fields:-
+                        1.Select fields provide a way for users to choose from a set of options. 
+                        2.They can be either single-select (like a dropdown) or multi-select, depending on the presence of the multiple attribute.
+                        3.Single-Select:
+-->
+<select>
+  <option value="1">One</option>
+  <option value="2">Two</option>
+  <option value="3">Three</option>
+</select>
+<!--                    4.Multi-Select:
+-->
+
+<select multiple>
+  <option value="1">0001</option>
+  <option value="2">0010</option>
+  <option value="4">0100</option>
+  <option value="8">1000</option>
+</select> = <span id="output">0</span>
+<script>
+  let select = document.querySelector("select");
+  let outputs = document.querySelector("#output");
+
+  select.addEventListener("change", () => {
+    let number = 0;
+    for (let option of Array.from(select.options)) {
+      if (option.selected) {
+        number += Number(option.value);
+      }
+    }
+    outputs.textContent = number;
+  });
+</script>
+<!--                            5.Properties and Methods: value, options and selected -->
+
+
+
+
+
+<!--14.File Fields:-
+                      1.File fields (<input type="file">) allow users to upload files from their computer
+-->
+
+<input type="file">
+<script>
+  let inputs = document.querySelector("input");
+  inputs.addEventListener("change", () => {
+    if (inputs.files.length > 0) {
+      let file = inputs.files[0];
+      console.log("You chose", file.name);
+      if (file.type) console.log("It has type", file.type);
+    }
+  });
+</script>
+<!--                  2.Multiple File Selection:By adding the multiple attribute to the file input, users can select multiple files at once.
+-->
+
+<input type="file" multiple>
+<script>
+  let input = document.querySelector("input");
+  input.addEventListener("change", () => {
+    for (let file of Array.from(input.files)) {
+      let reader = new FileReader();
+      reader.addEventListener("load", () => {
+        console.log("File", file.name, "starts with", reader.result.slice(0, 20));
+      });
+      reader.readAsText(file);
+    }
+  });
+</script>
+<!--                         3.Reading File Content:To read the contents of a file, use the FileReader object.  -->
+
+<script>
+let reader = new FileReader();
+reader.addEventListener("load", () => {
+  console.log("File starts with", reader.result.slice(0, 20));
+});
+reader.readAsText(file);
+</script>
+
+<!--                        4.Handling Errors:The FileReader also has an "error" event, 
+-->
+<script>
+function readFileText(file) {
+  return new Promise((resolve, reject) => {
+    let reader = new FileReader();
+    reader.addEventListener("load", () => resolve(reader.result));
+    reader.addEventListener("error", () => reject(reader.error));
+    reader.readAsText(file);
+  });
+}
+</script>
